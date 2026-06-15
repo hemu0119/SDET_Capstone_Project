@@ -1,0 +1,56 @@
+pipeline {
+
+    agent any
+
+    tools {
+        jdk 'JAVA_21'
+        maven 'Maven3'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                ...
+            }
+        }
+
+        stage('Build') {
+            steps {
+                ...
+            }
+        }
+
+        stage('Execute Tests') {
+            steps {
+                ...
+            }
+        }
+    }post {
+
+    always {
+
+        archiveArtifacts artifacts: 'ParaBank/test-output/**/*.*',
+                fingerprint: true
+
+        archiveArtifacts artifacts: 'ParaBank/target/**/*.*',
+                fingerprint: true
+
+        publishHTML([
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'ParaBank/test-output',
+            reportFiles: 'ExtentReport.html',
+            reportName: 'ParaBank Extent Report'
+        ])
+    }
+
+    success {
+        echo 'ParaBank Automation Execution Successful'
+    }
+
+    failure {
+        echo 'ParaBank Automation Execution Failed'
+    }
+}

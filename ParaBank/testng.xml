@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="ParaBankSuite">
+
+    <test name="Register Test">
+
+        <classes>
+
+            <class name="com.parabank.tests.RegisterTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>
