@@ -11,19 +11,26 @@ import org.openqa.selenium.WebDriver;
 public class ScreenshotUtil {
 
     public static String captureScreenshot(WebDriver driver,
-                                           String fileName)
-            throws IOException {
+                                           String screenshotName) {
 
-        File source =
+        String path = "test-output/screenshots/" +
+                      screenshotName + ".png";
+
+        File srcFile =
                 ((TakesScreenshot) driver)
-                        .getScreenshotAs(OutputType.FILE);
+                .getScreenshotAs(OutputType.FILE);
 
-        String destination =
-                "Screenshots/" + fileName + ".png";
+        try {
 
-        FileUtils.copyFile(source,
-                new File(destination));
+            FileUtils.copyFile(srcFile,
+                    new File(path));
 
-        return destination;
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        return path;
     }
+
 }
